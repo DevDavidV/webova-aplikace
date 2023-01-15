@@ -6,7 +6,6 @@ const DATA = {
 
 document.addEventListener('DOMContentLoaded', async () => {
     DATA.savedCountries = getSavedFavoriteCountries();
-    console.log(DATA.savedCountries)
 
     injectFavoriteCountriesCards()
     assignAllListeners()
@@ -70,7 +69,6 @@ const injectFavoriteCountriesCards = () => {
 
         $textArea.addEventListener('input', (e) => {
             e.preventDefault()
-            console.log($textArea.value, $cardElem.dataset.code)
             addNoteToSavedCountry($cardElem.dataset.code, $textArea.value)
         })
         $openDetailPageBtn.addEventListener('click', (e) => {

@@ -89,7 +89,6 @@ export const addNoteToSavedCountry = (code, note) => {
     if (!arrFromLocalStorage) return
 
     arrFromLocalStorage.forEach((country) => { if (country.iso2Code == code) country.notes = note })
-    console.log(arrFromLocalStorage, code, note)
     window.localStorage.favoriteCountries = JSON.stringify(arrFromLocalStorage)
 }
 
@@ -106,7 +105,6 @@ export const saveCountryToFavourites = (country) => {
         window.localStorage.favoriteCountries = JSON.stringify([countryToSave])
     }
 
-    console.log(window.localStorage)
 }
 
 export const saveIndicator = (indicator) => {
@@ -121,14 +119,12 @@ export const saveIndicator = (indicator) => {
         window.localStorage.favoriteIndicators = JSON.stringify([indicator])
     }
 
-    console.log(window.favoriteIndicators)
 }
 
 export const deleteCountryFromFavorites = (code) => {
     const savedCountries = window.localStorage.favoriteCountries
     if (savedCountries) {
         const arrFromLocalStorage = JSON.parse(savedCountries).filter((lsCountry) => lsCountry.iso2Code !== code)
-        console.log(arrFromLocalStorage)
         window.localStorage.favoriteCountries = JSON.stringify(arrFromLocalStorage)
     } else {
         window.localStorage.favoriteCountries = JSON.stringify([])

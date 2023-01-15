@@ -102,11 +102,9 @@ const hideSearchConflictingElems = (hide) => {
 
 const setFavoriteIcons = (favoriteCountriesCodes = []) => {
     Array.from(document.querySelectorAll(".countryTableRow")).map(($rowElem) => {
-        console.log($rowElem.querySelector('.favorite span'))
         if (favoriteCountriesCodes.includes($rowElem.dataset.code)) {
             $rowElem.querySelector('.favorite span').style.color = 'gold'
         } else {
-            console.log($rowElem.dataset.code, 'works')
             $rowElem.querySelector('.favorite span').style.color = 'white'
         }
 
@@ -175,7 +173,6 @@ const injectDataToTable = async () => {
                 saveCountryToFavourites(getCountryByCode(dataToPrint, $rowElem.dataset.code))
             }
 
-            console.log(getSavedFavoriteCountriesCodes())
             setFavoriteIcons(getSavedFavoriteCountriesCodes())
 
         })

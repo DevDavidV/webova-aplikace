@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const fetchedDetails = await fetchCountryIndicators(countryCode, getSavedIndicators());
     [DATA.countryDetails, DATA.countryIndicators] = fetchedDetails
 
-    console.log(DATA.countryDetails, DATA.countryIndicators)
     const $countryName = document.querySelector('#countryName')
     $countryName.innerHTML = `<div class="flagImgWrapper">
     ${DATA.countryDetails.capitalCity ? `<img class="flagImg" src="https://www.countryflagicons.com/FLAT/48/${DATA.countryDetails.iso2Code}.png">`
@@ -43,7 +42,6 @@ const assignAllListeners = () => {
 
     $loadMoreCountriesBtn.addEventListener('click', async () => {
         const moreIndicators = await fetchIndicatorsByPage(DATA.modal.pagination.page)
-        console.log(moreIndicators)
         DATA.modal.pagination = moreIndicators[0]
         DATA.modal.indicatorList = [...DATA.modal.indicatorList, ...moreIndicators[1]]
         injectRowsToModalTable()
@@ -168,10 +166,8 @@ const injectIndicators = () => {
 
         $indicator.querySelector('.deleteBtn').addEventListener('click', async (e) => {
             e.preventDefault()
-            console.log('works')
             deleteIndicator(indicatorId)
             DATA.countryIndicators = DATA.countryIndicators.filter(indicator => indicator.indicator.id !== indicatorId)
-            console.log(DATA.countryIndicators, indicatorId)
             injectIndicators()
 
         })
