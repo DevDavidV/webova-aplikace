@@ -19,7 +19,7 @@ export const fetchCountriesByPage = async (page) => {
 export const fetchIndicatorsByPage = async (page) => {
     let fetchedData = []
 
-    await fetch(`http://api.worldbank.org/v2/indicator?format=json&page=${page}`)
+    await fetch(`https://api.worldbank.org/v2/indicator?format=json&page=${page}`)
         .then(response => { return response.json() })
         .then(data => fetchedData = data)
 
@@ -28,7 +28,7 @@ export const fetchIndicatorsByPage = async (page) => {
 
 const fetchCountryData = async (code) => {
     let fetchedData = []
-    await fetch(`http://api.worldbank.org/v2/country/${code}?format=json`)
+    await fetch(`https://api.worldbank.org/v2/country/${code}?format=json`)
         .then(response => { return response.json() })
         .then(data => fetchedData = data)
     return fetchedData[1][0]
