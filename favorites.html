@@ -14,35 +14,33 @@
 </head>
 
 <body>
-
-    <body>
-        <header>
-            <div id="searchbar-wrapper">
-                <div id="goToFavorites"><b>Favorites</b></div>
-                <div id="goToListOfCountries">List of countries</div>
-                <form id="searchbarForm">
-                    <input id="search" autocomplete="off" name="search" type="text" placeholder="Search...">
-                    <div id="searchBarButtonsWrapper">
-                        <button type="submit">Search</button>
-                        <button id="clearSearchbar" type="submit">Reset</button>
-                    </div>
-                </form>
-            </div>
-        </header>
-        <div id="pageContentWrapper">
-            <div class="title-wrapper">
-                <h1>List of favorite countires and regions</h1>
-            </div>
-            <div id="favoriteCountriesCardsWrapper">
-            </div>
+    <header>
+        <div id="searchbar-wrapper">
+            <div id="goToFavorites"><b>Favorites</b></div>
+            <div id="goToListOfCountries">List of countries</div>
+            <form id="searchbarForm">
+                <input id="search" autocomplete="off" name="search" type="text" placeholder="Search...">
+                <div id="searchBarButtonsWrapper">
+                    <button type="submit">Search</button>
+                    <button id="clearSearchbar" type="submit">Reset</button>
+                </div>
+            </form>
         </div>
-        <footer>
-            <p>© Dávid Vikor 2023</p>
-        </footer>
-        <script src="./js/data.js" type="module"></script>
-        <script src="./js/favorites.js" type="module"></script>
-        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    </body>
+    </header>
+    <div id="pageContentWrapper">
+        <div class="title-wrapper">
+            <h1>List of favorite countires and regions</h1>
+        </div>
+        <div id="favoriteCountriesCardsWrapper">
+        </div>
+    </div>
+    <footer>
+        <p>© Dávid Vikor 2023</p>
+    </footer>
+    <script src="./js/data.js" type="module"></script>
+    <script src="./js/favorites.js" type="module"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+</body>
 
 </html>
