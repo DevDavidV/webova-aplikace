@@ -90,16 +90,6 @@ footer p {
     align-items: center;
 }
 
-#searchbar-wrapper-noSearchbar {
-    height: 50px;
-    width: 800px;
-    display: grid;
-    grid-column-gap: 10px;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    align-items: center;
-}
-
 #goToFavorites,
 #goToListOfCountries {
     height: 100%;
@@ -192,7 +182,7 @@ footer p {
     display: flex;
 }
 
-#countryName .flagImgWrapper{
+#countryName .flagImgWrapper {
     margin-right: 10px;
 }
 
@@ -348,4 +338,67 @@ footer p {
 .modal::-webkit-scrollbar-thumb {
     background-color: #23867b;
     outline: 1px solid slategrey;
+}
+
+@media (max-width: 880px) {
+    #searchbar-wrapper {
+        display: block;
+        height: 125px;
+    }
+
+    #searchbar-wrapper>* {
+        height: auto;
+        margin: 10px;
+    }
+
+    #favoriteCountriesCardsWrapper {
+        display: block;
+    }
+
+    #favoriteCountriesCardsWrapper>* {
+        display: block;
+        margin-bottom: 25px;
+    }
+
+    #mapAndDataWrapper {
+        display: block;
+        width: auto;
+    }
+
+    #mapAndDataWrapper #map {
+        width: 100%;
+    }
+
+    body {
+        margin-top: 125px;
+    }
+
+}
+
+@media (max-width: 800px) {
+    table {
+        font-size: 0.75rem;
+    }
+
+    th,
+    td {
+        padding: 0px;
+    }
+
+    #searchbar-wrapper {
+        width: auto;
+    }
+
+    #favoriteCountriesCardsWrapper{
+        width: auto;
+    }
+
+    #indicators-wrapper {
+        display: block;
+    }
+
+    #indicators-wrapper > *{
+        margin-bottom: 10px;
+        width: auto;
+    }
 }

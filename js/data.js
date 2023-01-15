@@ -2,10 +2,7 @@
             <=========  Komunikacia s API    =========>
 */
 
-/*   
-    Funkcia ktora z API ziska zoznam krajin, berie argument page -> stranka v poradi (API pouziva paginaciu). 
-    Vracia array, ktory ma na indexe 0 informacie o paginacii a indexe 1 data krajin 
-*/
+//Funkcia ktora fetchne z API krajiny zodpovedajuce page -> API ma vstavanu paginaciu
 export const fetchCountriesByPage = async (page) => {
     let fetchedData = []
 
@@ -16,6 +13,7 @@ export const fetchCountriesByPage = async (page) => {
     return fetchedData
 }
 
+//Funkcia ktora fetchne z API indikatory zodpovedajuce page -> API ma vstavanu paginaciu
 export const fetchIndicatorsByPage = async (page) => {
     let fetchedData = []
 
@@ -26,6 +24,7 @@ export const fetchIndicatorsByPage = async (page) => {
     return fetchedData
 }
 
+//Funkcia ktora na zaklade kodu krajiny ziska z API spat podrobne data o nej
 const fetchCountryData = async (code) => {
     let fetchedData = []
     await fetch(`https://api.worldbank.org/v2/country/${code}?format=json`)
@@ -34,6 +33,7 @@ const fetchCountryData = async (code) => {
     return fetchedData[1][0]
 }
 
+//Funkcia ktora na zaklade kodu krajiny a ID indikatora ziska z API spat indikator
 export const fetchCountryIndicator = async (countryCode, indicatorId) => {
     let fetchedData = []
     await fetch(`https://api.worldbank.org/v2/country/${countryCode}/indicator/${indicatorId}?format=json`)
@@ -47,6 +47,7 @@ export const fetchCountryIndicator = async (countryCode, indicatorId) => {
     return false
 }
 
+//Funkcia ktora na zaklade kodu krajiny a array ID indikatorov ziska z API, podrobnosti krajiny a list indikatorov
 export const fetchCountryIndicators = async (code, indicatorCodes) => {
     const [countryData, ...indicators] = await Promise.all([
         fetchCountryData(code),
@@ -55,6 +56,8 @@ export const fetchCountryIndicators = async (code, indicatorCodes) => {
     return [countryData, indicators]
 }
 
+//Funkcia ktora si stiahne vsetky krajiny a prefiltruje ci sa v nich vyskytuje nase search query, a vracia
+//zoznam krajin ktore odpovedaju query
 export const fetchCountriesByQuery = async (query) => {
     const allCountries = await fetch(`https://api.worldbank.org/v2/country/all?format=json&per_page=300`)
         .then(response => { return response.json() })
@@ -71,18 +74,22 @@ export const fetchCountriesByQuery = async (query) => {
             <=========  Manipulacia dat    =========>
 */
 
+//Funkcia ktora odstrani z array vsetky regiony (nemaju hlavne mesto)
 export const parseToOnlyCountries = (resultsArray) => {
     return resultsArray.filter((country) => country.capitalCity !== '')
 }
 
+//Funkcia ktora vrati objekt krajiny na zaklade kodu krajiny
 export const getCountryByCode = (countryArray, code) => {
     return countryArray.find((country) => country.iso2Code === code)
 }
 
+//Funkcia ktora vrati objekt indikatora na zaklade id indikatora
 export const getIndicatorById = (indicatorArray, id) => {
     return indicatorArray.find((indicator) => indicator.id === id)
 }
 
+//Funkcia ktora do zoznamu oblubenych krajin v LS vlozi ku krajine s kodom code poznamku note
 export const addNoteToSavedCountry = (code, note) => {
     const arrFromLocalStorage = JSON.parse(window.localStorage.favoriteCountries)
 
@@ -92,6 +99,7 @@ export const addNoteToSavedCountry = (code, note) => {
     window.localStorage.favoriteCountries = JSON.stringify(arrFromLocalStorage)
 }
 
+//Funkcia ktora ulozi krajinu do zoznamu oblubenych krajin v LS
 export const saveCountryToFavourites = (country) => {
     const countryToSave = { ...country, notes: '' }
     const savedCountries = window.localStorage.favoriteCountries
@@ -107,6 +115,7 @@ export const saveCountryToFavourites = (country) => {
 
 }
 
+//Funkcia ktora ulozi indikator do zoznamu oblubenych indikatorov v LS
 export const saveIndicator = (indicator) => {
     const savedIndicators = window.localStorage.favoriteIndicators
 
@@ -121,6 +130,7 @@ export const saveIndicator = (indicator) => {
 
 }
 
+//Funkcia ktora zmaze krajinu zo zoznamu oblubenych krajin v LS
 export const deleteCountryFromFavorites = (code) => {
     const savedCountries = window.localStorage.favoriteCountries
     if (savedCountries) {
@@ -131,6 +141,7 @@ export const deleteCountryFromFavorites = (code) => {
     }
 }
 
+//Funkcia ktora zmaze indikator zo zoznamu oblubenych indikatorov v LS
 export const deleteIndicator = (indicator) => {
     const savedIndicators = window.localStorage.favoriteIndicators
     if (savedIndicators) {
@@ -141,6 +152,7 @@ export const deleteIndicator = (indicator) => {
     }
 }
 
+//Funkcia ktora vrati zoznam oblubenych krajin v LS
 export const getSavedFavoriteCountries = () => {
     const savedCountries = window.localStorage.favoriteCountries
 
@@ -151,6 +163,7 @@ export const getSavedFavoriteCountries = () => {
     return JSON.parse(savedCountries)
 }
 
+//Funkcia ktora vrati kody oblubenych krajin v LS
 export const getSavedFavoriteCountriesCodes = () => {
     const savedCountries = window.localStorage.favoriteCountries
 
@@ -161,16 +174,17 @@ export const getSavedFavoriteCountriesCodes = () => {
     return JSON.parse(savedCountries).map((country) => country.iso2Code)
 }
 
+//Funkcia ktora vrati zoznam oblubenych indikatorov v LS
 export const getSavedIndicators = () => {
     const savedIndicators = window.localStorage.favoriteIndicators
 
     if (!savedIndicators) {
         const defaultIndicators = [
             'NY.GDP.MKTP.CD', 'NE.EXP.GNFS.ZS', 'NY.GDP.PCAP.CD', 'NY.GDP.MKTP.KD.ZG', 'FP.CPI.TOTL.ZG'
-        ] 
+        ]
         window.localStorage.favoriteIndicators = JSON.stringify(defaultIndicators);
         return defaultIndicators
-    } 
+    }
 
     return JSON.parse(savedIndicators)
 }

@@ -1,7 +1,9 @@
 import { deleteCountryFromFavorites, fetchCountriesByPage, fetchCountriesByQuery, getCountryByCode, getSavedFavoriteCountriesCodes, parseToOnlyCountries, saveCountryToFavourites } from "./data.js";
 
-//Zhromazduje state appky
-const DATA = {
+/* 
+            <=========  Objekt so state stranky    =========>
+*/
+const StateData = {
     pagination: {},
     countries: [],
     search: false,
@@ -10,19 +12,22 @@ const DATA = {
     favoriteCountriesCodes: []
 }
 
+/* 
+            <=========  Inicializacia stranky po nacitani    =========>
+*/
 document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('#showRegions').checked = false
     const firstCountries = await fetchCountriesByPage(1);
-    [DATA.pagination, DATA.countries] = firstCountries;
+    [StateData.pagination, StateData.countries] = firstCountries;
 
     const searchWord = (new URL(document.location)).searchParams.get('searchword')
     if (searchWord) {
-        DATA.search = true
-        DATA.searchResults = await fetchCountriesByQuery(searchWord)
+        StateData.search = true
+        StateData.searchResults = await fetchCountriesByQuery(searchWord)
         document.querySelector('#search').value = searchWord
         hideSearchConflictingElems(true)
     } else {
-        DATA.search = false
+        StateData.search = false
         hideSearchConflictingElems(false)
     }
 
@@ -30,56 +35,58 @@ document.addEventListener('DOMContentLoaded', async () => {
     assignAllListeners()
 });
 
+/* 
+            <=========  Manipulacia HTML Dom    =========>
+*/
 
+//Funkcia ktora nastavi listenery na vsetky potrebne elementy
 const assignAllListeners = () => {
     const $showRegionsCheckBox = document.querySelector('#showRegions')
     const $loadMoreCountriesBtn = document.querySelector('#loadMoreCountries')
     const $goToFavoritesBtn = document.querySelector('#goToFavorites')
-    const $goToListOfCountriesBtn = document.querySelector('#goToListOfCountries')
     const $searchbarForm = document.querySelector('#searchbarForm')
     const $clearSearchbar = document.querySelector('#clearSearchbar')
     const $searchBarInput = document.querySelector('#search')
 
+    //Pri kliku zmen hodnotu showRegions v objekte StateData a znovu vykresli riadky
     $showRegionsCheckBox.addEventListener('click', () => {
         if ($showRegionsCheckBox.checked) {
-            DATA.showRegions = true;
+            StateData.showRegions = true;
         } else {
-            DATA.showRegions = false;
+            StateData.showRegions = false;
         }
 
         injectDataToTable()
     })
 
-
+    //Pri kliku na loadMore nacita viac krajin
     $loadMoreCountriesBtn.addEventListener('click', async () => {
-        const moreFetchedCountries = await fetchCountriesByPage(++DATA.pagination.page);
-        DATA.pagination = moreFetchedCountries[0]
-        DATA.countries = [...DATA.countries, ...moreFetchedCountries[1]]
+        const moreFetchedCountries = await fetchCountriesByPage(++StateData.pagination.page);
+        StateData.pagination = moreFetchedCountries[0]
+        StateData.countries = [...StateData.countries, ...moreFetchedCountries[1]]
         injectDataToTable()
 
-        if (DATA.pagination.page === DATA.pagination.pages) {
+        if (StateData.pagination.page === StateData.pagination.pages) {
             $loadMoreCountriesBtn.style.display = 'none'
             return
         }
     })
 
+    //Po kliknuti na Favorites presmeruje aktualnu stranku na stranku oblubenych krajin
     $goToFavoritesBtn.addEventListener('click', async () => {
         window.location = 'favorites.html'
     })
 
-    $goToListOfCountriesBtn.addEventListener('click', async () => {
-        window.location = './'
-    })
-
+    //Pri submite seachFormu, ziskaj data ktore zodpovedaju query alebo resetuj seach na povodne zobrazenie krajin
     $searchbarForm.addEventListener("submit", async (e) => {
         e.preventDefault()
         const searchWord = $searchbarForm.elements['search'].value;
         if (searchWord != "") {
-            DATA.search = true
-            DATA.searchResults = await fetchCountriesByQuery(searchWord)
+            StateData.search = true
+            StateData.searchResults = await fetchCountriesByQuery(searchWord)
             hideSearchConflictingElems(true)
         } else {
-            DATA.search = false
+            StateData.search = false
             hideSearchConflictingElems(false)
         }
         injectDataToTable()
@@ -90,6 +97,7 @@ const assignAllListeners = () => {
     })
 }
 
+//Funkcia ktora pri searchy skryje buttony paginacie a zobrazovania regionov
 const hideSearchConflictingElems = (hide) => {
     if (hide) {
         document.querySelector('#loadMoreCountries').style.display = 'none'
@@ -100,6 +108,7 @@ const hideSearchConflictingElems = (hide) => {
     }
 }
 
+//Funkcia ktora zoberie vsetky riadky tabulky a nastavy im farbu podla toho ci su medzi oblubenymi
 const setFavoriteIcons = (favoriteCountriesCodes = []) => {
     Array.from(document.querySelectorAll(".countryTableRow")).map(($rowElem) => {
         if (favoriteCountriesCodes.includes($rowElem.dataset.code)) {
@@ -111,16 +120,17 @@ const setFavoriteIcons = (favoriteCountriesCodes = []) => {
     })
 }
 
+//Funkcia ktora vlozi to tabulky riadky na zaklade state v StateData objekte
 const injectDataToTable = async () => {
     const $table = document.querySelector('#countriesTable')
     let dataToPrint;
 
-    if (DATA.search) {
-        dataToPrint = DATA.searchResults
-    } else if (DATA.showRegions) {
-        dataToPrint = DATA.countries
+    if (StateData.search) {
+        dataToPrint = StateData.searchResults
+    } else if (StateData.showRegions) {
+        dataToPrint = StateData.countries
     } else {
-        dataToPrint = parseToOnlyCountries(DATA.countries)
+        dataToPrint = parseToOnlyCountries(StateData.countries)
     }
 
     const tableHeader = `
@@ -158,6 +168,8 @@ const injectDataToTable = async () => {
 
     $table.innerHTML = stringOfDataToPrint
 
+
+    //Prejdi vsetky riadky a nastav im onClick listener na presmerovanie na detail a pridanie medzi oblubene
     Array.from(document.querySelectorAll(".countryTableRow")).map(($rowElem) => {
         $rowElem.style.cursor = 'pointer'
 
@@ -172,9 +184,8 @@ const injectDataToTable = async () => {
             } else {
                 saveCountryToFavourites(getCountryByCode(dataToPrint, $rowElem.dataset.code))
             }
-
+            //Znovu nastav ikonky
             setFavoriteIcons(getSavedFavoriteCountriesCodes())
-
         })
     })
 

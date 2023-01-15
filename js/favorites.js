@@ -1,29 +1,37 @@
 import { addNoteToSavedCountry, deleteCountryFromFavorites, getSavedFavoriteCountries } from "./data.js";
 
-const DATA = {
+/* 
+            <=========  Objekt so state stranky    =========>
+*/
+const StateData = {
     savedCountries: []
 }
 
+/* 
+            <=========  Inicializacia stranky po nacitani    =========>
+*/
 document.addEventListener('DOMContentLoaded', async () => {
-    DATA.savedCountries = getSavedFavoriteCountries();
+    StateData.savedCountries = getSavedFavoriteCountries();
 
     injectFavoriteCountriesCards()
     assignAllListeners()
 });
 
+/* 
+            <=========  Manipulacia HTML Dom    =========>
+*/
+
+//Funkcia ktora nastavi listenery na vsetky potrebne elementy
 const assignAllListeners = () => {
-    const $goToFavoritesBtn = document.querySelector('#goToFavorites')
     const $goToListOfCountriesBtn = document.querySelector('#goToListOfCountries')
     const $searchbarForm = document.querySelector('#searchbarForm')
 
-    $goToFavoritesBtn.addEventListener('click', async () => {
-        window.location = 'favorites.html'
-    })
-
+    //Po kliknuti na List of countries presmeruje aktualnu stranku na stranku list krajin
     $goToListOfCountriesBtn.addEventListener('click', async () => {
         window.location = './'
     })
 
+    //Ak nieco napiseme do searchbaru, tak nas presmeruje na list krajin a vyhlada v nom nas keyword
     $searchbarForm.addEventListener("submit", async (e) => {
         e.preventDefault()
         const searchWord = $searchbarForm.elements['search'].value;
@@ -31,11 +39,11 @@ const assignAllListeners = () => {
     });
 }
 
-
+//Funkcia ktora vlozi karty s jednotlivymi oblubenymi krajinami
 const injectFavoriteCountriesCards = () => {
     const $favoriteCountriesCardsWrapper = document.querySelector('#favoriteCountriesCardsWrapper')
 
-    $favoriteCountriesCardsWrapper.innerHTML = DATA.savedCountries.map((country) => {
+    $favoriteCountriesCardsWrapper.innerHTML = StateData.savedCountries.map((country) => {
         return `
             <div class="favCountryCard" data-code="${country.iso2Code}">
                 <div class="wideMap" id="map${country.iso2Code}"></div>
@@ -53,7 +61,8 @@ const injectFavoriteCountriesCards = () => {
         `
     }).join('')
 
-    DATA.savedCountries.map((country) => {
+    //Prejdi cez vsetky krajiny a ich leaflet mapam nastav suradnice
+    StateData.savedCountries.map((country) => {
         const map = L.map('map' + country.iso2Code).setView([country.latitude, country.longitude], 5);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -62,6 +71,7 @@ const injectFavoriteCountriesCards = () => {
         }).addTo(map);
     })
 
+    //Prejdi cez vsetky karty a nastav ich buttonom onClick listenery
     Array.from(document.querySelectorAll(".favCountryCard")).map(($cardElem) => {
         const $textArea = $cardElem.querySelector('textarea')
         const $openDetailPageBtn = $cardElem.querySelector('.detailBtn')
@@ -78,7 +88,7 @@ const injectFavoriteCountriesCards = () => {
         $deleteBtn.addEventListener('click', (e) => {
             e.preventDefault()
             deleteCountryFromFavorites($cardElem.dataset.code)
-            DATA.savedCountries = getSavedFavoriteCountries();
+            StateData.savedCountries = getSavedFavoriteCountries();
             injectFavoriteCountriesCards()
         })
     })
