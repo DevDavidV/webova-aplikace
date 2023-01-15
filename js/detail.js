@@ -59,7 +59,7 @@ const assignAllListeners = () => {
     })
 
     $goToListOfCountriesBtn.addEventListener('click', async () => {
-        window.location = '/'
+        window.location = './'
     })
 
     $openModal.addEventListener('click', async () => {

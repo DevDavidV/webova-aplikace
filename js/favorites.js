@@ -22,7 +22,7 @@ const assignAllListeners = () => {
     })
 
     $goToListOfCountriesBtn.addEventListener('click', async () => {
-        window.location = '/'
+        window.location = './'
     })
 
     $searchbarForm.addEventListener("submit", async (e) => {
