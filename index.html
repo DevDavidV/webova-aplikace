@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div id="searchbar-wrapper">
+            <div id="goToFavorites">Favorites</div>
+            <div id="goToListOfCountries">List of countries</div>
+            <form id="searchbarForm">
+                <input id="search" autocomplete="off" name="search" type="text" placeholder="Search...">
+                <div id="searchBarButtonsWrapper">
+                    <button type="submit">Search</button>
+                    <button id="clearSearchbar" type="submit">Reset</button>
+                </div>
+            </form>
+        </div>
+    </header>
+    <div id="pageContentWrapper">
+        <div class="title-wrapper">
+            <h1>List of countries</h1>
+            <div id="showRegionsWrapper">
+                <input type="checkbox" id="showRegions" autocomplete="off">
+                <label for="showRegions">Show also regions</label>
+            </div>
+        </div>
+        <table id="countriesTable">
+        </table>
+        <div class="loadMoreButton-wrapper">
+            <button id="loadMoreCountries" class="basicButton">Load more...</button>
+        </div>
+    </div>
+    <footer>
+        <p>© Dávid Vikor 2023</p>
+    </footer>
+
+    <script src="./js/index.js" type="module"></script>
+    <script src="./js/data.js" type="module"></script>
+</body>
+
+</html>

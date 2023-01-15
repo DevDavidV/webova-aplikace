@@ -1,0 +1,351 @@
+html,
+body {
+    background: linear-gradient(-45deg, rgb(182, 244, 146), rgb(51, 139, 147));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+body {
+    margin-top: 50px;
+    min-height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #1f6c63;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+}
+
+button.favorite {
+    border: none;
+    background: none;
+}
+
+button.favorite>span {
+    color: white;
+}
+
+button.favorite>span:hover {
+    color: rgb(205, 205, 0);
+}
+
+h1 {
+    font-size: 2.25rem;
+    margin: 0;
+}
+
+table {
+    border: 0px solid rgba(255, 255, 255, 0.25);
+}
+
+th {
+    background-color: #23867b;
+}
+
+tr {
+    background-color: #6b9e8f;
+}
+
+th,
+td {
+    height: 30px;
+    padding: 10px;
+}
+
+tr:hover {
+    background-color: #74b9a6;
+}
+
+footer {
+    margin-top: auto;
+    height: 30px;
+    width: 100%;
+    padding: 5px 0 5px 0;
+    bottom: 0;
+    display: flex;
+    background-color: #23867b6c
+}
+
+footer p {
+    margin: auto auto;
+}
+
+#searchbar-wrapper {
+    height: 50px;
+    width: 800px;
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: 1fr 1fr 3fr;
+    justify-content: center;
+    align-items: center;
+}
+
+#searchbar-wrapper-noSearchbar {
+    height: 50px;
+    width: 800px;
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+#goToFavorites,
+#goToListOfCountries {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#goToFavorites:hover,
+#goToListOfCountries:hover {
+    background-color: #6b9e8f;
+}
+
+#searchbarForm {
+    display: flex;
+    width: 100%;
+}
+
+#searchbarForm input {
+    border: 1px solid transparent;
+    border-radius: 7px;
+    width: 80%;
+}
+
+#searchBarButtonsWrapper {
+    display: flex;
+}
+
+#searchBarButtonsWrapper button {
+    margin-left: 10px;
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    color: white;
+    background-color: #6b9e8f;
+    cursor: pointer;
+}
+
+#searchBarButtonsWrapper button:hover {
+    background-color: #74b9a6;
+}
+
+#pageContentWrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 0 auto;
+    width: fit-content;
+}
+
+#showRegionsWrapper {
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+#showRegionsWrapper input {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    accent-color: #23867b;
+}
+
+#favoriteCountriesCardsWrapper {
+    width: 800px;
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0 15px 0;
+}
+
+
+
+#mapAndDataWrapper {
+    display: flex;
+    margin-bottom: 50px;
+    background-color: #23867b;
+}
+
+#map {
+    width: 400px;
+    height: 250px;
+}
+
+#countryName {
+    display: flex;
+}
+
+#countryName .flagImgWrapper{
+    margin-right: 10px;
+}
+
+#countryBasicData {
+    width: 400px;
+    padding-left: 25px;
+}
+
+#indicators-wrapper {
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 15px;
+}
+
+#indicators-wrapper-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#addIndicators {
+    height: 30px;
+}
+
+.title-wrapper {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.basicButton {
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    color: white;
+    background-color: #23867b;
+    cursor: pointer;
+}
+
+.basicButton:hover {
+    background-color: #74b9a6;
+}
+
+.loadMoreButton-wrapper {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.flagImgDiv {
+    height: 48px;
+    width: 48px;
+}
+
+.flagImgWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.favCountryCard {
+    width: 100%;
+    background-color: #23867b;
+}
+
+.favCountryCardContent {
+    padding: 0 15px 15px 15px;
+}
+
+.favCountryCardContent textarea {
+    width: 100%;
+    box-sizing: border-box;
+    height: 100px;
+}
+
+.favCountryCardContent .detailBtn {
+    width: 100%;
+    border: none;
+    margin-top: 5px;
+    border-radius: 6px;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+    background-color: #6b9e8f;
+}
+
+.deleteBtn {
+    width: 100%;
+    border: none;
+    margin-top: 5px;
+    border-radius: 6px;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+    background-color: #6b9e8f;
+}
+
+.deleteBtn:hover {
+    background-color: #632d2d;
+}
+
+.wideMap {
+    width: 100%;
+    height: 200px;
+}
+
+.indicator {
+    border: 0px solid transparent;
+    border-radius: 7px;
+    background-color: #23867b;
+    padding: 15px;
+}
+
+.modal {
+    display: none;
+}
+
+.modal-open {
+    display: block;
+    position: fixed;
+    width: 70vw;
+    height: 70vh;
+    background-color: #608b8a;
+    z-index: 1001;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px;
+    overflow-y: scroll;
+}
+
+.modalHeader {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modalHeader .basicButton {
+    height: 35px;
+}
+
+.modal::-webkit-scrollbar {
+    width: 1em;
+}
+
+.modal::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background-color: #23867b;
+    outline: 1px solid slategrey;
+}

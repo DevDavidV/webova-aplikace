@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+</head>
+
+<body>
+    <header>
+        <header>
+            <div id="searchbar-wrapper">
+                <div id="goToFavorites">Favorites</div>
+                <div id="goToListOfCountries">List of countries</div>
+                <form id="searchbarForm">
+                    <input id="search" autocomplete="off" name="search" type="text" placeholder="Search...">
+                    <div id="searchBarButtonsWrapper">
+                        <button type="submit">Search</button>
+                        <button id="clearSearchbar" type="submit">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </header>
+    </header>
+    <div id="pageContentWrapper">
+        <div class="title-wrapper">
+            <h1 id="countryName">Country name</h1>
+        </div>
+        <h2>Basic overview</h2>
+        <div id="mapAndDataWrapper">
+            <div id="map"></div>
+            <div id="countryBasicData"></div>
+        </div>
+        <div id="indicators-wrapper-header">
+            <h2>Indicators</h2>
+            <button id="addIndicators" class="basicButton">Add indicators</button>
+        </div>
+        <div id="indicators-wrapper">
+        </div>
+        <div class="modal">
+            <div class="modalHeader">
+                <h2>Pick indicators</h2>
+                <button id="closeModal" class="basicButton">Close</button>
+            </div>
+            <table id="modalTable">
+            </table>
+            <div class="loadMoreButton-wrapper">
+                <button id="loadMoreCountries" class="basicButton">Load more...</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>© Dávid Vikor 2023</p>
+    </footer>
+
+    <script src="./js/detail.js" type="module"></script>
+    <script src="./js/data.js" type="module"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+</body>
+
+</html>
