@@ -77,7 +77,7 @@ const assignAllListeners = () => {
     $searchbarForm.addEventListener("submit", async (e) => {
         e.preventDefault()
         const searchWord = $searchbarForm.elements['search'].value;
-        window.location = '/?searchword=' + searchWord
+        window.location = './?searchword=' + searchWord
     });
 }
 
